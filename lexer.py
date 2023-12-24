@@ -14,7 +14,7 @@ def fsep(t):
     for token in t:
         st = ""
         for char in token:
-            if char in "{}[]();":
+            if char in "{}[]();:,":
                 if st != "":
                     t2.append(st)
                     st = ""
@@ -42,11 +42,27 @@ def fsep(t):
  11 - main Keyword
  12 - int Keyword
 
-100 - function
-101 - statement
-102 - parameters
+ 60 - comma
+
+100 - function definition
+101 - block
+102 - function definition parameters
+103 - single definition parameter
+104 - statement
+105 - block ID
+
+201 - anonymous block
+202 - if block
+203 - else block
+204 - else if block
+205 - do while block
+206 - while block
+207 - for block
+
+-1 - program
 '''
 def categorizer(t):
+
 
     if t.isnumeric():
         return 1
@@ -72,6 +88,8 @@ def categorizer(t):
         return 11
     elif t == 'int':
         return 12
+    elif t == ',':
+        return 60
     else:
         return 0
 
@@ -89,9 +107,15 @@ def translator(n):
         elif n == 10: return "Keyword - return"
         elif n == 11: return "Keyword - main"
         elif n == 12: return "Keyword - int"
-        elif n == 100: return "<FUNCTION>"
-        elif n == 101: return "<BODY>"
-        elif n == 102: return "<FUNCTION PARAMETERS>"
+        elif n == 60: return "Comma"
+        elif n == 100: return "<FUNCTION DEF>"
+        elif n == 101: return "<BLOCK>"
+        elif n == 102: return "<FUNCTION DEF PARAMETERS>"
+        elif n == 103: return "<SINGLE DEF PARAMETER>"
+        elif n == 104: return "<STATEMENT>"
+        elif n == 105: return "<BLOCK ID>"
+
+        elif n == -1: return "<PROGRAM>"
         else: return "--"
         
 def get_tokens(file):
