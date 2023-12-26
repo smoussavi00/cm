@@ -14,7 +14,7 @@ def fsep(t):
     for token in t:
         st = ""
         for char in token:
-            if char in "{}[]();:,":
+            if char in "{}[]();:,*":
                 if st != "":
                     t2.append(st)
                     st = ""
@@ -50,6 +50,8 @@ def fsep(t):
 103 - single definition parameter
 104 - statement
 105 - block ID
+106 - post-loop while
+107 - data type
 
 201 - anonymous block
 202 - if block
@@ -90,6 +92,8 @@ def categorizer(t):
         return 12
     elif t == ',':
         return 60
+    elif t == '*':
+        return 61
     else:
         return 0
 
@@ -108,12 +112,15 @@ def translator(n):
         elif n == 11: return "Keyword - main"
         elif n == 12: return "Keyword - int"
         elif n == 60: return "Comma"
+        elif n == 61: return "Pointer"
         elif n == 100: return "<FUNCTION DEF>"
         elif n == 101: return "<BLOCK>"
         elif n == 102: return "<FUNCTION DEF PARAMETERS>"
         elif n == 103: return "<SINGLE DEF PARAMETER>"
         elif n == 104: return "<STATEMENT>"
         elif n == 105: return "<BLOCK ID>"
+        elif n == 106: return "<POST-LOOP WHILE>"
+        elif n == 107: return "<DATA TYPE>"
 
         elif n == -1: return "<PROGRAM>"
         else: return "--"
